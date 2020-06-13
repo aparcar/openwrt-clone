@@ -53,7 +53,7 @@ export PATH:=$(path)
 
 unexport TAR_OPTIONS
 
-ifneq ($(shell $(HOSTCC) 2>&1 | grep clang),)
+ifneq ($(shell $(HOSTCC) --version | grep clang),)
   export HOSTCC_REAL?=$(HOSTCC)
   export HOSTCC_WRAPPER:=$(TOPDIR)/scripts/clang-gcc-wrapper
 else
@@ -171,7 +171,7 @@ kernel_nconfig: prepare_kernel_conf
 
 staging_dir/host/.prereq-build: include/prereq-build.mk
 	mkdir -p tmp
-	@$(_SINGLE)$(NO_TRACE_MAKE) -j1 -r -s -f $(TOPDIR)/include/prereq-build.mk prereq 2>/dev/null || { \
+	@$(_SINGLE)$(NO_TRACE_MAKE) -j1 -r -s -f $(TOPDIR)/include/prereq-build.mk prereq CC="$(HOSTCC_WRAPPER)" 2>/dev/null || { \
 		echo "Prerequisite check failed. Use FORCE=1 to override."; \
 		false; \
 	}

@@ -1,12 +1,15 @@
 #!/bin/sh
-_cc="${HOSTCC_REAL:-gcc}"
-case "$1" in
-	-print-file-name=*)
-		dirs="$($_cc -print-search-dirs | grep -m1 libraries | sed -e 's,:, ,' -e 's,.* =,,')"
-		dirs="$dirs /usr/lib /usr/local/lib"
-		find $dirs -name "${1#*=}" | head -n1
+
+case "${@}" in
+	*-print-file-name=*)
+		dirs="$(${HOSTCC_REAL} -print-search-dirs | grep -m1 libraries | sed -e 's,:, ,' -e 's,.* =,,')"
+		dirs="${dirs} /usr/lib /usr/local/lib"
+		find ${dirs} -name "${1#*=}" | head -n1
+	;;
+	*-x\ ada*)
+		exit 1
 	;;
 	*)
-		exec $_cc "$@"
+		exec "${HOSTCC_REAL}" "${@}"
 	;;
 esac

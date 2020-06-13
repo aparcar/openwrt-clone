@@ -13,6 +13,9 @@ of a case sensitive file system.
 
 You need gcc, binutils, bzip2, flex, python3.5+, perl, make, find, grep, diff,
 unzip, gawk, getopt, subversion, libz-dev and libc headers installed.
+On FreeBSD: devel/git, devel/gmake, devel/ncurses, ftp/wget, lang/gawk,
+misc/findutils, misc/getopt, shells/bash, sysutils/coreutils,
+textproc/diffutils, textproc/gnugrep
 
 1. Run "./scripts/feeds update -a" to obtain all the latest package definitions
 defined in feeds.conf / feeds.conf.default

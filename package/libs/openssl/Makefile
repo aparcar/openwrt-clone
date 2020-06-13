@@ -333,6 +333,7 @@ define Build/Configure
 			--prefix=/usr \
 			--libdir=lib \
 			--openssldir=/etc/ssl \
+			CC="$(TARGET_CC)" \
 			$(TARGET_CPPFLAGS) \
 			$(TARGET_LDFLAGS) \
 			$(OPENSSL_OPTIONS) && \

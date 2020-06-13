@@ -29,8 +29,9 @@ $(eval $(call TestHostCommand,proper-umask, \
 $(eval $(call SetupHostCommand,gcc, \
 	Please install the GNU C Compiler (gcc) 4.8 or later, \
 	$(CC) -dumpversion | grep -E '^(4\.[8-9]|[5-9]\.?|10\.?)', \
+	$(CC) --version | grep 'clang', \
 	gcc -dumpversion | grep -E '^(4\.[8-9]|[5-9]\.?|10\.?)', \
-	gcc --version | grep -E 'Apple.(LLVM|clang)' ))
+	gcc --version | grep -E 'Apple.(LLVM|clang)'))
 
 $(eval $(call TestHostCommand,working-gcc, \
 	\nPlease reinstall the GNU C Compiler (4.8 or later) - \
@@ -41,8 +42,9 @@ $(eval $(call TestHostCommand,working-gcc, \
 $(eval $(call SetupHostCommand,g++, \
 	Please install the GNU C++ Compiler (g++) 4.8 or later, \
 	$(CXX) -dumpversion | grep -E '^(4\.[8-9]|[5-9]\.?|10\.?)', \
+	$(CXX) --version | grep 'clang', \
 	g++ -dumpversion | grep -E '^(4\.[8-9]|[5-9]\.?|10\.?)', \
-	g++ --version | grep -E 'Apple.(LLVM|clang)' ))
+	g++ --version | grep -E 'Apple.(LLVM|clang)'))
 
 $(eval $(call TestHostCommand,working-g++, \
 	\nPlease reinstall the GNU C++ Compiler (4.8 or later) - \
@@ -63,6 +65,9 @@ ifeq ($(HOST_OS),Linux)
 else
   zlib_link_flags := -lz
 endif
+ifeq ($(HOST_OS),FreeBSD)
+  $(shell ln -sf `whereis -qb gmake` $(STAGING_DIR_HOST)/bin/make)
+endif
 
 $(eval $(call TestHostCommand,perl-data-dumper, \
 	Please install the Perl Data::Dumper module, \
@@ -76,7 +81,8 @@ $(eval $(call TestHostCommand,perl-thread-queue, \
 $(eval $(call SetupHostCommand,tar,Please install GNU 'tar', \
 	gtar --version 2>&1 | grep GNU, \
 	gnutar --version 2>&1 | grep GNU, \
-	tar --version 2>&1 | grep GNU))
+	tar --version 2>&1 | grep GNU, \
+	tar --version 2>&1 | grep bsdtar))
 
 $(eval $(call SetupHostCommand,find,Please install GNU 'find', \
 	gfind --version 2>&1 | grep GNU, \
@@ -92,7 +98,8 @@ $(eval $(call SetupHostCommand,xargs, \
 
 $(eval $(call SetupHostCommand,patch,Please install GNU 'patch', \
 	gpatch --version 2>&1 | grep 'Free Software Foundation', \
-	patch --version 2>&1 | grep 'Free Software Foundation'))
+	patch --version 2>&1 | grep 'Free Software Foundation', \
+	patch --version | grep BSD))
 
 $(eval $(call SetupHostCommand,diff,Please install diffutils, \
 	gdiff --version 2>&1 | grep diff, \
@@ -112,12 +119,14 @@ $(eval $(call SetupHostCommand,awk,Please install GNU 'awk', \
 
 $(eval $(call SetupHostCommand,grep,Please install GNU 'grep', \
 	ggrep --version 2>&1 | grep GNU, \
-	grep --version 2>&1 | grep GNU))
+	grep --version 2>&1 | grep GNU, \
+	/usr/local/bin/grep --version 2>&1 | grep GNU))
 
 $(eval $(call SetupHostCommand,getopt, \
 	Please install an extended getopt version that supports --long, \
 	gnugetopt -o t --long test -- --test | grep '^ *--test *--', \
-	getopt -o t --long test -- --test | grep '^ *--test *--'))
+	getopt -o t --long test -- --test | grep '^ *--test *--', \
+	/usr/local/bin/getopt -o t --long test -- --test | grep '^ *--test *--'))
 
 $(eval $(call SetupHostCommand,stat,Cannot find a file stat utility, \
 	gnustat -c%s $(TOPDIR)/Makefile, \

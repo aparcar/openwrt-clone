@@ -79,6 +79,8 @@
 
 
 
+#include <sys/param.h>
+#include <sys/types.h>
 #include <endian.h>
 #include <stdio.h>
 #include <string.h>
@@ -88,6 +90,7 @@
 
 #define ARRAY_SIZE(_n) (sizeof(_n) / sizeof((_n)[0]))
 
+#ifndef BSD
 static void
 be32enc(void *buf, uint32_t u)
 {
@@ -124,6 +127,7 @@ be32dec(const void *buf)
 
 	return (((uint32_t) be16dec(p)) << 16) | be16dec(p + 2);
 }
+#endif
 
 #define MD5_DIGEST_LENGTH	16
 
