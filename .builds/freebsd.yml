@@ -1,0 +1,34 @@
+image: freebsd/latest
+artifacts:
+  - ./bin
+sources:
+  - https://github.com/aparcar/openwrt-clone.git 
+packages:
+  - devel/git
+  - devel/gmake
+  - devel/ncurses
+  - ftp/wget
+  - gcc
+  - gtar
+  - lang/gawk
+  - misc/findutils
+  - misc/getopt
+  - patch
+  - python3
+  - shells/bash
+  - sysutils/coreutils
+  - textproc/diffutils
+  - textproc/gnugrep
+tasks:
+  - setup: |
+      cd openwrt-clone
+      TARGET="$(echo $GITHUB_PR_TITLE | cut -d ':' -f 1)"
+      echo "CONFIG_TARGET_${TARGET}=y" > .config
+      ./scripts/feeds update
+      ./scripts/feeds install -a
+      gmake defconfig
+      gmake prereq
+
+  - build: |
+      cd openwrt-clone
+      gmake -j $(nproc)
