@@ -1,0 +1,35 @@
+image: debian/stable
+
+packages:
+- build-essential
+- curl
+- file
+- gawk
+- gettext
+- git
+- libncurses-dev
+- libssl-dev
+- python3
+- rsync
+- subversion
+- swig
+- unzip
+- wget
+- zlib1g-dev
+- shellcheck
+
+sources:
+- https://github.com/aparcar/openwrt-clone.git
+
+tasks:
+- prepare: |
+    cd openwrt-clone
+    wget -q https://gitlab.com/ynezz/openwrt-ci/raw/master/Makefile -O Makefile.ci
+    make ci-prepare -f Makefile.ci
+
+- shellcheck: |
+    cd openwrt-clone
+    make ci-shellcheck -f Makefile.ci V=s
+
+artifacts:
+- ./bin

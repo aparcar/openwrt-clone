@@ -1,0 +1,39 @@
+image: debian/stable
+
+packages:
+- build-essential
+- curl
+- file
+- gawk
+- gettext
+- git
+- libncurses-dev
+- libssl-dev
+- python3
+- rsync
+- subversion
+- swig
+- unzip
+- wget
+- zlib1g-dev
+- python3-venv
+
+sources:
+- https://github.com/aparcar/openwrt-clone.git
+
+tasks:
+- prepare: |
+    cd openwrt-clone
+    wget -q https://gitlab.com/ynezz/openwrt-ci/raw/master/Makefile -O Makefile.ci
+    make ci-prepare -f Makefile.ci
+
+- flake8: |
+    cd openwrt-clone
+    make ci-py-flake8 -f Makefile.ci V=s
+
+- codestyle: |
+    cd openwrt-clone
+    make ci-py-codestyle -f Makefile.ci V=s
+
+artifacts:
+- ./bin
