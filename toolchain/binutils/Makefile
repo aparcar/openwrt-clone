@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2006-2013 OpenWrt.org
+# Copyright (C) 2006-2020 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,6 +8,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=binutils
 PKG_VERSION:=$(call qstrip,$(CONFIG_BINUTILS_VERSION))
+PKG_RELEASE:=1
 BIN_VERSION:=$(PKG_VERSION)
 
 PKG_SOURCE_URL:=@GNU/binutils/
