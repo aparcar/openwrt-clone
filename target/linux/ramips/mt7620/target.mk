@@ -7,7 +7,7 @@ BOARDNAME:=MT7620 based boards
 FEATURES+=usb ramdisk
 CPU_TYPE:=24kc
 
-DEFAULT_PACKAGES += kmod-rt2800-soc wpad-basic swconfig
+DEFAULT_PACKAGES += kmod-rt2800-soc wpad-basic-wolfssl swconfig
 
 KERNEL_PATCHVER:=5.4
 

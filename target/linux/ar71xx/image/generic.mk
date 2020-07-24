@@ -547,7 +547,7 @@ define Device/lan-turtle
   $(Device/tplink-16mlzma)
   DEVICE_TITLE := Hak5 LAN Turtle
   DEVICE_PACKAGES := kmod-usb2 kmod-usb-storage \
-	-kmod-ath9k -swconfig -uboot-envtools -wpad-basic
+	-kmod-ath9k -swconfig -uboot-envtools -wpad-basic-wolfssl
   BOARDNAME := LAN-TURTLE
   DEVICE_PROFILE := LANTURTLE
   TPLINK_HWID := 0x5348334c
@@ -704,7 +704,7 @@ define Device/packet-squirrel
   $(Device/tplink-16mlzma)
   DEVICE_TITLE := Hak5 Packet Squirrel
   DEVICE_PACKAGES := kmod-usb2 \
-	-kmod-ath9k -swconfig -uboot-envtools -wpad-basic
+	-kmod-ath9k -swconfig -uboot-envtools -wpad-basic-wolfssl
   BOARDNAME := PACKET-SQUIRREL
   DEVICE_PROFILE := PACKETSQUIRREL
   TPLINK_HWID := 0x5351524c

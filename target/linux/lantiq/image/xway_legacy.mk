@@ -19,7 +19,7 @@ define Device/arcadyan_arv4518pwr01a
 	kmod-ltq-adsl-danube-mei kmod-ltq-adsl-danube \
 	kmod-ltq-adsl-danube-fw-a kmod-ltq-atm-danube \
 	ltq-adsl-app ppp-mod-pppoa \
-	kmod-ath5k wpad-basic
+	kmod-ath5k wpad-basic-wolfssl
   SUPPORTED_DEVICES += ARV4518PWR01A
 endef
 TARGET_DEVICES += arcadyan_arv4518pwr01a

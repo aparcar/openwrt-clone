@@ -918,7 +918,7 @@ define Device/iodata_etg3-r
   DEVICE_VENDOR := I-O DATA
   DEVICE_MODEL := ETG3-R
   IMAGE_SIZE := 7680k
-  DEVICE_PACKAGES := -iwinfo -kmod-ath9k -wpad-basic
+  DEVICE_PACKAGES := -iwinfo -kmod-ath9k -wpad-basic-wolfssl
 endef
 TARGET_DEVICES += iodata_etg3-r
 

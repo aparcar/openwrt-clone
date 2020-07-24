@@ -7,7 +7,7 @@ BOARDNAME:=MT76x8 based boards
 FEATURES+=usb ramdisk
 CPU_TYPE:=24kc
 
-DEFAULT_PACKAGES += kmod-mt7603 wpad-basic swconfig
+DEFAULT_PACKAGES += kmod-mt7603 wpad-basic-wolfssl swconfig
 KERNEL_PATCHVER:=5.4
 
 define Target/Description
