@@ -14,6 +14,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  		REG_WRITE(ah, AR_RC, 0);
  
 -	if (AR_SREV_9100(ah))
+
 +	if (AR_SREV_9100(ah)) {
 +		/* Reset the AHB-WMAC interface */
 +		if (ah->external_reset)
